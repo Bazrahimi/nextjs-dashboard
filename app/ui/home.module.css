@@ -1,0 +1,13 @@
+.shape {
+  height: 0;
+  width: 0;
+  border-bottom: 30px solid black;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+/* CSS Module allow us to scope CSS to a component by automatically creating unique class names, so you don't have to worry about style  */
+
+/* Tailwind and CSS modules are the two most common ways of styling next.js application. whether you use one or the other is a matter of preference - you can eve use bothin the same application. */
+
+/* moreover we can use clsx library to toggle class names or concatenate class names */
