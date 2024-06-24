@@ -1,11 +1,6 @@
-import React from 'react'
+const InvoicesPage = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  return <div>Invoices Page</div>;
+};
 
-const InvoicesPage = () => {
-  return (
-    <div>
-      Invoices Page
-    </div>
-  )
-}
-
-export default InvoicesPage
+export default InvoicesPage;
