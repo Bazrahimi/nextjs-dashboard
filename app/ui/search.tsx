@@ -12,13 +12,12 @@ export default function Search({ placeholder }: { placeholder: string }) {
     // create a new URLSearchParam instance from the current search parameters.
     const params = new URLSearchParams(searchParams);
     // update the search parameters based on the term input.
+    params.set('page', '1');
     if (term) {
       params.set('query', term);
     } else {
       params.delete('query');
     }
-
-    console.log(term)
 
     replace(`${pathname}?${params.toString()}`);
   }, 300);
