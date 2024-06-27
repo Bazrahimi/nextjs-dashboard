@@ -13,6 +13,25 @@ export function CreateInvoice() {
   );
 }
 
+// flex: makes the Link element a flex container, enabling the use of flexbox properties.
+// h-10: set the height of Link element to 10 units
+// items-center: vertically centers the child element along the cross axis.
+// rounded-lg: apply large rounded corners to the link element
+// bg-blue-600: sets background color to blue shad 600
+// px-4: add horizontal padding of 4 units (1 rem)
+// text-sm: set the text size to small
+// text-white: set the text color to white
+// transition-colors: Enables smooth transition from color change (used in hover and focus state)
+// focus-visible: applies outline when element receives keyboard focus.
+// focus-visible: 
+
+// For the inner element:
+// hidden: hides the 'span' element by default.
+// md: display the span element when medium display.
+// h-5: Set the height of the 'PlusIcon' to 5 units
+// md: add a left margin of 4 units
+
+
 export function UpdateInvoice({ id }: { id: string }) {
   return (
     <Link
