@@ -1,5 +1,7 @@
+'use client';
 import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
+import  { useActionState } from 'react';
 import {
   CheckIcon,
   ClockIcon,
@@ -10,6 +12,7 @@ import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/app/lib/actions';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
+  // const [] = useActionState(createInvoice, )
   return (
     <form action={createInvoice}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -24,6 +27,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
               name="customerId"
               className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               defaultValue=""
+              // required
             >
               <option value="" disabled>
                 Select a customer
