@@ -2,13 +2,18 @@ import Breadcrumbs from '@/app/ui/invoices/breadcrumbs'
 import Form from '@/app/ui/invoices/edit-form';
 import React from 'react';
 import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+import { notFound } from 'next/navigation';
 
 const EditInvoicePage = async({params}: {params: {id: string}}) => {
   const id = params.id
   const [invoice, customers] = await Promise.all([
     fetchInvoiceById(id),
     fetchCustomers(),
-  ])
+  ]);
+
+  if (!invoice) {
+    notFound();
+  }
   
   return (
     <main>
@@ -29,4 +34,4 @@ const EditInvoicePage = async({params}: {params: {id: string}}) => {
 
 export default EditInvoicePage
 
-// Read the invoice id from the page params
+// Rendering 404 in case of no resources are found 
