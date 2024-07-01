@@ -18,33 +18,15 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-// NOTE:
-// Container '<main>':
-// flex: apply flexbox layout
-// items-center: aligns items vertically to center
-// justify-center: center items horizontally 
-// md:h-screen: set the height to full screen on medium devices and larger
+// NOTE: NextAuth.js
+// we will be using NextAuth.js to add authentication to this application. NextAuth.js make sign-in, sign-out and managing session much easier. 
+// we can manually implement this features, the process can be time consuming. NextAuth.js simplifies the process.
 
-// Inner Container '<div>':
-// relative: position the element relative to its normal position
-// mx-auto: Center the element horizontally with automatic margins
-// flex: applies Flexbox layout.
-// w-full: Set the width to 100%.
-// max-w-[400px]: set a maximum width of 400px.
-// flex-col: stack the children vertically
-// space-y-2.5: Adds vertical spacing of 2.5 units between the children
-// p-4: adds padding of 1rem (16px) on all sides
-// md:-mt-32: apply a negative top margin of 8rem 128 px on medium devices and larger
+// 1. we install the NextAuth.js to our application and then add the generated key into the Auth)_SECRET variable. the key is used to encrypt cookies, ensuring the security of user session. 
 
+// adding the pages option
+// auth.config.ts: this needs to be in the root of application, it needs to export an authConfig object, the is object will contain the configuration options for NextAuth.js 
 
-// Logo Container "<div>";
-// flex: applies flexbox layout.
-// h-20: set 8rems 
+// the authorized callback is used to verify if the request is authorized to access a page. it is called before a request is completed, and it receive an object with the auth and request properties. the auth property contain the user session, and the request contain the incoming request (url);
 
-// NextAuth.js
-// NextAuth.js abstract away much of the complexity involved in managing sessions, sign-in and sign-out, and other aspect of authentication. while you can manually implement these features, the process can be time-consuming and error-prone. NextAuth.js simplifies the process, providing a unified solutions for auth in Next.js application.
-
-// setting up NextAuth.js
-//1. install the library
-// 2. then add the generated key to AUTH_SECRET variable 
-// 3. create auth.config.ts file at the root of your project that exports an authConfig object.this object will contain the configuration options for NextAuth.js for now it will only contain the page option.
+// the providers options is an array where you list different login options. for now it is empty to satisfy NextAuth config. 
