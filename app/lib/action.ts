@@ -59,6 +59,7 @@ export const updateInvoice = async (id: string, formData: FormData) => {
   } catch (error) {
     return {
       message: "Database Error: Failed to update the invoice",
+      
     };
   }
 
@@ -73,5 +74,4 @@ export const deleteInvoice = async (id: string) => {
   } catch (error) {
     return { message: "Database Error: Failed to Delete Invoice" };
   }
-
 };
