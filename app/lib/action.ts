@@ -13,21 +13,19 @@ export type State = {
     status?: string[];
   };
   // an optional 'message' field that can hold a general message.
-  message?: string | null
-}
-
-
+  message?: string | null;
+};
 
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
+    invalid_type_error: "Please select a customer.",
   }),
   amount: z.coerce.number().gt(0, {
-    message: 'Please enter an amount greater than $0.00',
+    message: "Please enter an amount greater than $0.00",
   }),
   status: z.enum(["pending", "paid"], {
-    invalid_type_error: 'Please Select Invoice Status.',
+    invalid_type_error: "Please Select Invoice Status.",
   }),
   date: z.string(),
 });
@@ -46,12 +44,12 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
-    }
+      message: "Missing Fields. Failed to Create Invoice.",
+    };
   }
 
   // Prepare Data for insertion into database
-  const {customerId, amount, status} = validatedFields.data;
+  const { customerId, amount, status } = validatedFields.data;
 
   const amountInCents = amount * 100;
   const date = new Date().toISOString().split("T")[0];
@@ -62,7 +60,7 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
   } catch (error) {
-    console.error("Error Creating Invoice", error) // For Local Debugging ONLY
+    console.error("Error Creating Invoice", error); // For Local Debugging ONLY
     return {
       message: "Database Error: Failed to create invoice.",
     };
@@ -72,12 +70,27 @@ export const createInvoice = async (prevState: State, formData: FormData) => {
   redirect("/dashboard/invoices");
 };
 
-export const updateInvoice = async (id: string, formData: FormData) => {
-  const { customerId, amount, status } = UpdateInvoice.parse({
+export const updateInvoice = async (
+  id: string,
+  prevState: State,
+  formData: FormData
+) => {
+  const validatedFields = UpdateInvoice.safeParse({
     customerId: formData.get("customerId"),
     amount: formData.get("amount"),
     status: formData.get("status"),
   });
+
+  // if validation fail, return error early, Otherwise, continue
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Update Invoice.",
+    };
+  }
+
+  // Prepare data for insertion into database
+  const {customerId, amount, status} = validatedFields.data;
 
   const amountInCents = amount * 100;
 
@@ -92,7 +105,6 @@ export const updateInvoice = async (id: string, formData: FormData) => {
     // Sentry.captureException(error); Example: log hte error to Sentry
     return {
       message: "Database Error: Failed to update the invoice",
-      
     };
   }
 
@@ -105,7 +117,7 @@ export const deleteInvoice = async (id: string) => {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath("/dashboard/invoices");
   } catch (error) {
-    console.error("Error Deleting Invoice", error) // for Local Debugging ONLY
+    console.error("Error Deleting Invoice", error); // for Local Debugging ONLY
     return { message: "Database Error: Failed to Delete Invoice" };
   }
 };
