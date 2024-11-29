@@ -32,6 +32,7 @@ export const createInvoice = async (formData: FormData) => {
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
   } catch (error) {
+    console.error("Error Creating Invoice", error) // For Local Debugging ONLY
     return {
       message: "Database Error: Failed to create invoice.",
     };
@@ -57,6 +58,8 @@ export const updateInvoice = async (id: string, formData: FormData) => {
     WHERE id = ${id}
   `;
   } catch (error) {
+    console.error("Error Updating Invoice:", error); // for local Debugging ONLY
+    // Sentry.captureException(error); Example: log hte error to Sentry
     return {
       message: "Database Error: Failed to update the invoice",
       
@@ -72,6 +75,7 @@ export const deleteInvoice = async (id: string) => {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath("/dashboard/invoices");
   } catch (error) {
+    console.error("Error Deleting Invoice", error) // for Local Debugging ONLY
     return { message: "Database Error: Failed to Delete Invoice" };
   }
 };

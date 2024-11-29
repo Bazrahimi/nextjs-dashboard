@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from "react";
 
-const error = (
+const InvoiceError = (
   {
     error,
     reset,
@@ -30,4 +30,4 @@ const error = (
   )
 }
 
-export default error
+export default InvoiceError
